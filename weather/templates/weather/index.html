@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{% if weather_data_list_interia %}
+    <div>
+    <ul>
+        {% for key, value in weather_data_list_interia.items %}
+            <li>
+                {{ key }}
+                <ul style="display: flex; flex-direction: column"></br>
+                {% for each in value %}
+                    <li>{{ each }}</li>
+                    {% if each|length > 5 %}
+                        <li style=""> <img src="https://i.pinimg.com/originals/02/df/13/02df1371803d037225b466ee8783519b.png" width="100" height="100" alt="grafika slonca svg"> </li>
+                    {% endif %}
+                {% endfor %}
+                </ul></br>
+            </li>
+        {% endfor %}
+    </ul>
+    </div>
+{#    <div>#}
+{#    <ul>#}
+{#        {% for each_day in weather_data_list_interia %}#}
+{#            <li>{{ each_day.0 }}</li></br>#}
+{#            <div style="display: flex; flex-direction: row; align-items: center">#}
+{#            <ul style="list-style-type:none">#}
+{#            {% for each_hour in each_day %}#}
+{#                {% if each_hour != each_day.0 %}#}
+{#                    <li> {{ each_hour }} </li>#}
+{#                    {% if each_hour|length > 5 %}#}
+{#                        <li style=""> <img src="https://i.pinimg.com/originals/02/df/13/02df1371803d037225b466ee8783519b.png" width="100" height="100" alt="grafika slonca svg"> </li>#}
+{#                    {% endif %}#}
+{#                {% endif %}#}
+{#            {% endfor %}#}
+{#            </ul></br></br>#}
+{#            </div>#}
+{#        {% endfor %}#}
+{#    </ul>#}
+{#{% else %}#}
+{#    <p>Mie ma pogody</p>#}
+{% endif %}
+    <div>
+    <ul>
+        {% for key, value in weather_data_list_google.items %}
+            <li>
+                {{ key }}
+                <ul style="display: flex; flex-direction: column"></br>
+                {% for each in value %}
+                    <li>{{ each }}</li>
+                {% endfor %}
+                </ul></br>
+            </li>
+        {% endfor %}
+    </ul>
+    </div>
+</body>
+</html>
