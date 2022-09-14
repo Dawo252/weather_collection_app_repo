@@ -65,6 +65,7 @@ def gather_weather_interia_better_solution(url: str) -> List:
             continue
     return weather_data_dictionary_interia
 
+# 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 - my token
 
 def gather_weather_data_google_better_solution(url: str) -> Dict[str, List]:
     r = requests.get(url)
