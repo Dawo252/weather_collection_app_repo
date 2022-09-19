@@ -3,23 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'weather/style.css/' %}">
 </head>
 <body>
-
 {% if weather_data_list_interia %}
     <div>
     <ul>
         {% for key, value in weather_data_list_interia.items %}
-            {% if forloop.counter < 4 %}
                 <li>
                     {{ key }}
                     <ul style="display: flex; flex-direction: column"></br>
-                    {% for each in value %}
-                        <li>{{ each }}</li>
+                    {% for each_hour in value %}
+                        <li class="single_hour_weather_entry">{{ each_hour }}</li>
+{#                        {% if each_hour.2|length > 5 %}#}
+{#                            <li style=""> <img src="https://i.pinimg.com/originals/02/df/13/02df1371803d037225b466ee8783519b.png" width="100" height="100" alt="grafika slonca svg"> </li>#}
+{#                        {% endif %}#}
                     {% endfor %}
                     </ul></br>
                 </li>
-            {% endif %}
         {% endfor %}
     </ul>
     </div>

@@ -29,15 +29,21 @@ def gather_weather_data_interia_better_solution(url: str) -> Dict[str, List]:
 
     i = 0
     for each_hour in hour_span:
-        index = hour_span.index(each_hour)
-        if each_hour.text != '0':
-            weather_list.append(each_hour.text + ':00')
-            weather_list.append(temp_span[index].text)
-            weather_list.append(forecast_span[index].text)
-        else:
-            weather_data_dictionary_interia[day_span[i].text] = [weather_list[x:x+3] for x in range(0, len(weather_list), 3)]
-            weather_list = [each_hour.text + ':00', each_hour.text, each_hour.text]
-            i += 1
+        hours_in_a_day = 24
+        index = hour_span.index(each_hour) + i * hours_in_a_day
+        try:
+            if each_hour.text != '0':
+                weather_list.append(each_hour.text + ':00')
+                weather_list.append(temp_span[index].text)
+                weather_list.append(forecast_span[index].text)
+                # print(index)
+            else:
+                weather_data_dictionary_interia[day_span[i].text] = [weather_list[x:x+3] for x in range(0, len(weather_list), 3)]
+                weather_list = [each_hour.text + ':00', temp_span[index].text, forecast_span[index].text]
+                i += 1
+                # print(index)
+        except IndexError:
+            break
     return weather_data_dictionary_interia
 
 # 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 - my token
@@ -48,6 +54,7 @@ def gather_weather_data_google_better_solution(url: str) -> Dict[str, List]:
     weather_data_for_a_day = []
     google_weather_site_content = BeautifulSoup(r.text, 'html.parser')
     google_weather_site_content.select(".HourlyForecast--DisclosureList--3CdxR")
+
     for weather_div in google_weather_site_content.select(".HourlyForecast--DisclosureList--3CdxR"):
         coming_days_list = weather_div.select('.HourlyForecast--longDate--1tdaJ')
         hourly_weather_data_divs = weather_div.select('.DetailsSummary--DetailsSummary--2HluQ')
@@ -67,6 +74,6 @@ def gather_weather_data_google_better_solution(url: str) -> Dict[str, List]:
             i += 1
     return weather_data_dictionary_google
 
-#
-# print(gather_weather_data_interia_better_solution(url_interia))
+
+print(gather_weather_data_interia_better_solution(url_interia))
 # print(gather_weather_data_google_better_solution(url_google))
