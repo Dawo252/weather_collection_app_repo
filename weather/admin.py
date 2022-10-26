@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import WeatherTable, WeatherProvider
+
+admin.site.register(WeatherTable)
+admin.site.register(WeatherProvider)
